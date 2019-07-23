@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 		// Empaquetar en objetos del modelo
 		if(usuario == null) {
 			try {
-				usuario = new Usuario(nick, password);
+				usuario = new Usuario(nick, password, true);
 			} catch (ModeloException e) {
 				request.getRequestDispatcher(VISTAS_LOGIN_JSP).forward(request, response);
 				return;
@@ -45,6 +45,7 @@ public class LoginServlet extends HttpServlet {
 			// Redireccionar a un controlador
 			request.getSession().setAttribute("usuario", usuario);
 			request.getRequestDispatcher("principal").forward(request, response);
+			System.out.println("Login correcto");
 		} else {
 			// Redireccionar a una vista
 			usuario.setErrorUsuario("Las credenciales no son correctas");

@@ -7,4 +7,7 @@ public class LogicaNegocio {
 		return "javier".equals(usuario.getNick()) &&
 				"lete".equals(usuario.getPassword());
 	}
+	public static boolean isAdmin(Usuario usuario) {
+		return true;
+	}
 }
