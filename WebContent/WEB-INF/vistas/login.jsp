@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
-<form action="login">
+<form action="login" method="post">
 	<input name="nick" /> <span class="error">${usuario.errorNick}</span>
-	<input type="password" name="password" /> <span class="error">${usuario.errorPassword}</span>
+	<input type="password" name="password" type="hidden"/> <span class="error">${usuario.errorPassword}</span>
 	<button>Login</button>
 	<span class="error">${usuario.errorUsuario}</span>
 </form>

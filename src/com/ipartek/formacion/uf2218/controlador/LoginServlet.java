@@ -18,6 +18,10 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Recoger información de la petición
 		String nick = request.getParameter("nick");
 		String password = request.getParameter("password");
@@ -52,10 +56,6 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("usuario", usuario);
 			request.getRequestDispatcher(VISTAS_LOGIN_JSP).forward(request, response);
 		}
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }
