@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 		
-		// Ejecutar lógica de negocio
+		// Ejecutar logica de negocio
 		if(LogicaNegocio.isAutenticado(usuario)) {
 			// Redireccionar a un controlador
 			request.getSession().setAttribute("usuario", usuario);

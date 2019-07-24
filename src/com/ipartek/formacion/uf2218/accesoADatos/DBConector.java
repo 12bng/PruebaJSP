@@ -32,7 +32,7 @@ public class DBConector {
             Path currentRelativePath = Paths.get("");
             String s = currentRelativePath.toAbsolutePath().toString();
             String url = "jdbc:sqlite:"+s+"\\WebContent\\DataBase\\Usuarios.db";
-            
+            System.out.println(s);
             // create a connection to the database
             conn = DriverManager.getConnection(url);
             
@@ -51,10 +51,14 @@ public class DBConector {
     public static void main(String[] args) {
     	//testeo
     	getConnection();
-    	update("INSERT INTO users(id, name, password, admin) VALUES(1,'admin','admin',TRUE)");
+    	update("INSERT INTO users(id, name, password, admin) VALUES(2,'user','user',FALSE)");
         ResultSet rs = query("SELECT * FROM users");
         try {
-			System.out.println(rs.getString(2));
+        	while(rs.next()) {
+        		System.out.println(rs.getString(2));
+        	}
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
