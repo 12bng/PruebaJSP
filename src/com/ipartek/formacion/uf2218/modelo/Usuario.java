@@ -8,70 +8,92 @@ public class Usuario {
 	private String errorPassword;
 	private String errorUsuario;
 	private boolean valido = true;
-	
+
 	public Usuario(String nick, String password) {
 		super();
 		setNick(nick);
 		setPassword(password);
 		setAdmin(false);
 	}
+
+	public Usuario(String nick, Boolean isAdmin) {
+		super();
+		setNick(nick);
+		setAdmin(isAdmin);
+	}
+
 	public Usuario(String nick, String password, Boolean isAdmin) {
 		super();
 		setNick(nick);
 		setPassword(password);
 		setAdmin(isAdmin);
 	}
+
 	public void setAdmin(Boolean isAdmin) {
-		admin=isAdmin;
+		admin = isAdmin;
 	}
+
 	public Boolean isAdmin() {
 		return admin;
 	}
+
 	public String getNick() {
 		return nick;
 	}
+
 	public void setNick(String nick) {
-		if(nick == null) {
+		if (nick == null) {
 			throw new ModeloException("No se admiten nicks nulos");
 		}
-		
-		if(nick.trim().length() == 0) {
+
+		if (nick.trim().length() == 0) {
 			setErrorNick("No se admiten nicks vacíos");
 		}
 		this.nick = nick;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public String getErrorNick() {
 		return errorNick;
 	}
+
 	public void setErrorNick(String errorNick) {
 		this.errorNick = errorNick;
 		setValido(false);
 	}
+
 	public String getErrorPassword() {
 		return errorPassword;
 	}
+
 	public void setErrorPassword(String errorPassword) {
 		this.errorPassword = errorPassword;
 		setValido(false);
 	}
+
 	public String getErrorUsuario() {
 		return errorUsuario;
 	}
+
 	public void setErrorUsuario(String errorUsuario) {
 		this.errorUsuario = errorUsuario;
 	}
+
 	public boolean isValido() {
 		return valido;
 	}
+
 	public void setValido(boolean hayErrores) {
 		this.valido = hayErrores;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -80,6 +102,7 @@ public class Usuario {
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -101,10 +124,10 @@ public class Usuario {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Usuario [nick=" + nick + ", password=" + password + "]";
 	}
-	
-	
+
 }

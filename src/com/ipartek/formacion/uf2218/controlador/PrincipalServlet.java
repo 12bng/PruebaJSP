@@ -19,19 +19,20 @@ public class PrincipalServlet extends HttpServlet {
 	private static final String VISTAS_USUARIO_JSP = "/WEB-INF/vistas/vistaUsuario.jsp";
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Iterable<Producto> productos = LogicaNegocio.obtenerProductos();
-		//request.setAttribute("productos", productos);
-		if(((Usuario) request.getSession().getAttribute("usuario")).isAdmin()) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Iterable<Producto> productos = LogicaNegocio.obtenerProductos();
+		// request.setAttribute("productos", productos);
+		if ( LogicaNegocio.isAdmin(((Usuario) request.getSession().getAttribute("usuario")))) {
 			request.getRequestDispatcher(VISTAS_ADMIN_JSP).forward(request, response);
-		}
-		else {
-			request.getRequestDispatcher(VISTAS_USUARIO_JSP).forward(request, response);	
+		} else {
+			request.getRequestDispatcher(VISTAS_USUARIO_JSP).forward(request, response);
 		}
 
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

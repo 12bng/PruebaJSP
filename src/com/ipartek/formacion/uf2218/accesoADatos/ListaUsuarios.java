@@ -1,4 +1,5 @@
 package com.ipartek.formacion.uf2218.accesoADatos;
+
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,10 +7,14 @@ import java.util.ArrayList;
 
 import com.ipartek.formacion.uf2218.modelo.Usuario;
 
+public class ListaUsuarios implements Crudable<Usuario>, Serializable {
 
-public class ListaUsuarios implements Crudable<Usuario>, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3399782236567922862L;
+	DBConector conexion = DBConector.getConnection();
 
-	DBConector conexion;
 	private ListaUsuarios() {
 	}
 
@@ -26,17 +31,15 @@ public class ListaUsuarios implements Crudable<Usuario>, Serializable{
 	// Fin patrón Singleton
 
 	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-	
-	
-	
+
 	@Override
 	public Iterable<String> obtenerTodosLosNombres() {
-		
+
 		ResultSet rs = DBConector.query("SELECT name FROM users");
-		ArrayList<String> lista = null;
+		ArrayList<String> lista = new ArrayList<String>();
 		try {
-			while(rs.next()) {
-				 lista.add(rs.getString(0));
+			while (rs.next()) {
+				lista.add(rs.getString(0));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -44,35 +47,80 @@ public class ListaUsuarios implements Crudable<Usuario>, Serializable{
 		}
 		return lista;
 	}
-	
+
 	@Override
-	public void cargarDB() {
-		String request = "SELECT * FROM usuarios";
-		// TODO Auto-generated method stub
+	public ArrayList<Usuario> cargarDB() {
+		String query = "SELECT name, admin FROM users";
+		ResultSet rs = DBConector.query(query);
+		try {
+			while (rs.next()) {
+				//System.out.println(rs.getString(1));
+				usuarios.add(new Usuario(rs.getString(1), rs.getBoolean(2)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return usuarios;
 	}
-	
+
 	@Override
 	public Usuario obtenerPorId(long id) {
-		// TODO Auto-generated method stub
+		String query = "SELECT name, admin FROM usuarios WHERE id=" + id + ";";
+		DBConector.query(query);
 		return null;
 	}
 
 	@Override
 	public void insertar(Usuario objeto) {
-		// TODO Auto-generated method stub
-		
+		String name = objeto.getNick();
+		String password = objeto.getPassword();
+		Boolean admin = objeto.isAdmin();
+		String query = "INSERT INTO users(name, password, admin) VALUES('" + name + "','" + password + "'," + admin
+				+ ")";
+		DBConector.update(query);
 	}
 
 	@Override
 	public void modificar(Usuario objeto) {
-		// TODO Auto-generated method stub
-		
+		String name = objeto.getNick();
+		String password = objeto.getPassword();
+		Boolean admin = objeto.isAdmin();
+		String query = "UPDATE users SET password='" + password + "', admin=" + admin + " WHERE name='" + name + "';";
+		DBConector.update(query);
 	}
 
 	@Override
 	public void borrar(long id) {
-		// TODO Auto-generated method stub
-		
+		String query = "DELETE FROM users WHERE id=" + id + ";";
+		DBConector.update(query);
+
 	}
+
+	@Override
+	public Boolean login(String name, String password) {
+		String query = "SELECT name FROM users WHERE name = '" + name + "' AND password = '" + password + "';";
+		try {
+			return (DBConector.query(query).next());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Boolean isAdmin(String name) {
+
+		String query = "SELECT admin FROM users WHERE name = '" + name + "';";
+		try {
+			System.out.println(DBConector.query(query).getBoolean(1));
+			return DBConector.query(query).getBoolean(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	};
 
 }
