@@ -11,4 +11,10 @@
 <p>VentanaUser</p>
 </body>
 </html>
+
+<h2>Editar usuario</h2>
+<form action="ModifieUser" method="post">
+	<p>password</p><input name="modifieUserPassword" /> <br>
+	<button>Modificar</button>
+</form>
 <%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>

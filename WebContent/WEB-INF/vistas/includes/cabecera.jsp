@@ -11,4 +11,7 @@
 <body>
 	<header>
 		<h1>Ejemplo JavaEE</h1>
+		<form action="logout" method="post">
+	<button>Logout</button>
+</form>
 	</header>

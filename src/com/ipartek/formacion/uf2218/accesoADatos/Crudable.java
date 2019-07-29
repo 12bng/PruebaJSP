@@ -13,13 +13,13 @@ public interface Crudable<T> {
 
 	public Iterable<String> obtenerTodosLosNombres();
 
-	public T obtenerPorId(long id);
+	public T obtenerPorNombre(String nombre);
 
 	public void insertar(T objeto);
 
 	public void modificar(T objeto);
 
-	public void borrar(long id);
+	public void borrar(String nombre);
 
 	public Boolean login(String name, String password);
 

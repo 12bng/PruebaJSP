@@ -61,6 +61,7 @@ public class LoginServlet extends HttpServlet {
 			// Redireccionar a una vista
 			usuario.setErrorUsuario("Las credenciales no son correctas");
 			request.setAttribute("usuario", usuario);
+			request.getSession().setAttribute("usuario", usuario);
 			request.getRequestDispatcher(VISTAS_LOGIN_JSP).forward(request, response);
 		}
 	}

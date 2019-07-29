@@ -7,7 +7,27 @@ public class Usuario {
 	private String errorNick;
 	private String errorPassword;
 	private String errorUsuario;
+	private String errorNewNick;
+	private String errorNewPassword;
 	private boolean valido = true;
+	
+	public String getErrorNewNick() {
+		return errorNewNick;
+	}
+
+	public void setErrorNewNick(String errorNewNick) {
+		this.errorNewNick = errorNewNick;
+	}
+
+	public String getErrorNewPassword() {
+		return errorNewPassword;
+	}
+
+	public void setErrorNewPassword(String errorNewPassword) {
+		this.errorNewPassword = errorNewPassword;
+	}
+
+	
 
 	public Usuario(String nick, String password) {
 		super();

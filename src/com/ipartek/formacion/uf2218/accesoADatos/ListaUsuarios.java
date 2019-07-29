@@ -52,6 +52,7 @@ public class ListaUsuarios implements Crudable<Usuario>, Serializable {
 	public ArrayList<Usuario> cargarDB() {
 		String query = "SELECT name, admin FROM users";
 		ResultSet rs = DBConector.query(query);
+		usuarios = new ArrayList<Usuario>();
 		try {
 			while (rs.next()) {
 				//System.out.println(rs.getString(1));
@@ -64,9 +65,20 @@ public class ListaUsuarios implements Crudable<Usuario>, Serializable {
 	}
 
 	@Override
-	public Usuario obtenerPorId(long id) {
-		String query = "SELECT name, admin FROM usuarios WHERE id=" + id + ";";
-		DBConector.query(query);
+	public Usuario obtenerPorNombre(String nombre) {
+		try {
+			String query = "SELECT name FROM users WHERE name='" + nombre + "';";
+			ResultSet rs = DBConector.query(query);
+			//System.out.println(rs.getString("name"));
+			Usuario user = new Usuario(rs.getString("name"), false);
+			rs.close();
+			return  user;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("No existe el usuario");
+		}
 		return null;
 	}
 
@@ -90,8 +102,8 @@ public class ListaUsuarios implements Crudable<Usuario>, Serializable {
 	}
 
 	@Override
-	public void borrar(long id) {
-		String query = "DELETE FROM users WHERE id=" + id + ";";
+	public void borrar(String name) {
+		String query = "DELETE FROM users WHERE name='" + name + "';";
 		DBConector.update(query);
 
 	}
